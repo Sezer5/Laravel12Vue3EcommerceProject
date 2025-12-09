@@ -21,6 +21,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'address',
+        'city',
+        'zip_code',
+        'country',
+        'phone_number',
+        'profile_image',
+        'profile_completed'
     ];
 
     /**
@@ -31,6 +38,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $appends = [
+        'image_path'
     ];
 
     /**
@@ -44,5 +55,19 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class)
+        ->with('products')
+        ->latest();
+    }
+
+    public function getImagePathAttribute(){
+        if($this->profile_image){
+            return asset($this->profile_image);
+        }else{
+            return "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_1280.png";
+        }
     }
 }
