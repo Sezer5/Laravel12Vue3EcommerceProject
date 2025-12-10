@@ -35,7 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
     <!-- Sweet alert js -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @session('succes')
+    @session('success')
         <script>
             Swal.fire({
                 position: "top-end",
@@ -51,9 +51,9 @@
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "{{session('error')}}",
+                title: "{{ session('error') }}",
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2500
             });
         </script>
     @endsession
@@ -68,21 +68,20 @@
         })
     </script>
     <script>
-        function deleteItem(id){
+        function deleteItem(id) {
             Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(id).submit();
-                    });
                 }
-                });
+            });
         }
     </script>
 </html>
