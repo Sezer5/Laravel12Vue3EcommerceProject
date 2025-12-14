@@ -134,7 +134,7 @@
                                             multiple
                                             >
                                             
-                                            @foreach ($color as $color)
+                                            @foreach ($colors as $color)
                                                 
                                                    <option value="{{$color->id}}" @if (collect(old('color_id'))->contains($color->id)) selected @endif>{{$color->name}}</option>
                                             @endforeach
@@ -159,7 +159,7 @@
                                             multiple
                                             >
                                             
-                                            @foreach ($size as $size)
+                                            @foreach ($sizes as $size)
                                                 
                                                    <option value="{{$size->id}}" @if (collect(old('size_id'))->contains($size->id)) selected @endif>{{$size->name}}</option>
                                             @endforeach
@@ -175,7 +175,7 @@
 
                                     <div class="mb-3">
                                         <label for="desc" class="form-label ">Description*</label>
-                                        <textarea class="form-control @error('desc') is-invalid @enderror summernote" name="desc" id="desc" rows="3"></textarea>
+                                        <textarea class="form-control @error('desc') is-invalid @enderror summernote" name="desc" id="desc" rows="3">{{old('desc')}}</textarea>
                                         @error('desc')
                                             <span class="invalid-feedback">
                                                 <strong>
