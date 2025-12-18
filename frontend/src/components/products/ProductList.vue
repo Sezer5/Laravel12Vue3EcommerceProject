@@ -1,5 +1,12 @@
 <template>
     <div class="row">
+        <div class="d-flex">
+            
+            <div class="mb-3">
+                Found
+                <span class="fw-bold">{{ productsStore.products.length }}</span>
+            </div>
+        </div>
         <ProductListItem v-for="product in productsStore.products.slice(0,data.productsToShow)" :key="product.id" :product="product" />
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-dark mt-3"
