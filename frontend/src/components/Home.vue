@@ -1,6 +1,7 @@
 <template>
   <div class="row my-5">
       <Spinner :store="productsStore"/>
+      <Sidebar/>
       <div class="col-md-8">
         <ProductList />
       </div>
@@ -12,6 +13,7 @@ import { onMounted } from 'vue';
 import { useProductStore } from '../../stores/useProductsStore';
 import  ProductList from '@/components/products/ProductList.vue'
 import Spinner from './layouts/Spinner.vue'
+import Sidebar from './layouts/Sidebar.vue';
 
 // define the store variable
 const productsStore = useProductStore();

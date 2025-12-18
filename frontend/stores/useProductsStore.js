@@ -26,7 +26,33 @@ export const useProductStore = defineStore('products', {
             this.isLoading = false,
             console.log(error)
         }
+    },
+    async filterProducts(param,value,search=false) {
+        this.isLoading = true
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/api/product/${value}/${param}`)
+            this.products = response.data.data 
+            this.categories = response.data.categories
+            this.colors = response.data.colors
+            this.brands = response.data.brands
+            this.sizes = response.data.sizes
+            if(search) {
+              this.filter = {
+                param: "term",
+                value
+              }
+            }else {
+              this.filter = {
+                param,
+                value: response.data.filter
+              }
+            }
+            this.isLoading = false
+        } catch (error) {
+            this.isLoading = false
+            console.log(error)
+        }
+      },
+      
     }
-    
-  },
 })

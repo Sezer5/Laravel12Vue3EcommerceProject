@@ -13,135 +13,111 @@ use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
-    //User get all products User get all products User get all products User get all products User get all products 
-    //User get all products User get all products User get all products User get all products User get all products 
-    //User get all products User get all products User get all products User get all products User get all products 
-    //User get all products User get all products User get all products User get all products User get all products 
-    //User get all products User get all products User get all products User get all products User get all products 
-
-    public function index(){
+    /**
+     * Get all the products
+     */
+    public function index()
+    {
         return ProductResource::collection(
             Product::with(['colors','sizes','category','brand'])->latest()->get()
         )->additional([
-            'colors' =>Color::has('products')->get(),
-            'sizes' =>Size::has('products')->get(),
-            'brands' =>Brand::has('products')->get(),
-            'categories' =>Category::has('products')->get(),
+            'colors' => Color::has('products')->get(),
+            'sizes' => Size::has('products')->get(),
+            'brands' => Brand::has('products')->get(),
+            'categories' => Category::has('products')->get(),
         ]);
     }
 
-    // Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug 
-    // Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug 
-    // Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug 
-    // Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug 
-    // Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug  Get product by slug 
-
-    public function show(Product $product){
-
-        if(!$product){
+    /**
+     * Get product by slug
+     */
+    public function show(Product $product)
+    {
+        if(!$product) {
             abort(404);
-        };
+        }
 
-        return ProductResource::collection(
+        return ProductResource::make(
             $product->load(['colors','sizes','reviews','category','brand'])
         );
     }
 
-    // Filter product by category Filter product by category Filter product by category Filter product by category 
-    // Filter product by category Filter product by category Filter product by category Filter product by category 
-    // Filter product by category Filter product by category Filter product by category Filter product by category 
-    // Filter product by category Filter product by category Filter product by category Filter product by category 
-    // Filter product by category Filter product by category Filter product by category Filter product by category 
-
-
-    public function filterProductByCategory(Category $category){
-
+    /**
+     * Filter products by category
+     */
+    public function filterProductByCategory(Category $category)
+    {
         return ProductResource::collection(
-            $category->prodcuts()->with(['colors','sizes','category','brand'])->latest()->get()
+            $category->products()->with(['colors','sizes','category','brand'])->latest()->get()
         )->additional([
-            'colors' =>Color::has('products')->get(),
-            'sizes' =>Size::has('products')->get(),
-            'brands' =>Brand::has('products')->get(),
-            'categories' =>Category::has('products')->get(),
-            'filter' => $category->name,
+            'colors' => Color::has('products')->get(),
+            'sizes' => Size::has('products')->get(),
+            'brands' => Brand::has('products')->get(),
+            'categories' => Category::has('products')->get(),
+            'filter' => $category->name
         ]);
     }
 
-
-    // Filter product by brands  Filter product by brands  Filter product by brands  Filter product by brands 
-    // Filter product by brands  Filter product by brands  Filter product by brands  Filter product by brands 
-    // Filter product by brands  Filter product by brands  Filter product by brands  Filter product by brands 
-    // Filter product by brands  Filter product by brands  Filter product by brands  Filter product by brands 
-    // Filter product by brands  Filter product by brands  Filter product by brands  Filter product by brands 
-
-    public function filterProductByBrand(Brand $brand){
-
+    /**
+     * Filter products by brand
+     */
+    public function filterProductByBrand(Brand $brand)
+    {
         return ProductResource::collection(
-            $brand->prodcuts()->with(['colors','sizes','category','brand'])->latest()->get()
+            $brand->products()->with(['colors','sizes','category','brand'])->latest()->get()
         )->additional([
-            'colors' =>Color::has('products')->get(),
-            'sizes' =>Size::has('products')->get(),
-            'brands' =>Brand::has('products')->get(),
-            'categories' =>Category::has('products')->get(),
-            'filter' => $brand->name,
+            'colors' => Color::has('products')->get(),
+            'sizes' => Size::has('products')->get(),
+            'brands' => Brand::has('products')->get(),
+            'categories' => Category::has('products')->get(),
+            'filter' => $brand->name
         ]);
     }
 
-
-    // Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color 
-    // Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color 
-    // Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color 
-    // Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color 
-    // Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color Filter Product By Color 
-
-    public function filterProductByColor(Color $color){
-
+    /**
+     * Filter products by color
+     */
+    public function filterProductByColor(Color $color)
+    {
         return ProductResource::collection(
-            $color->prodcuts()->with(['colors','sizes','category','brand'])->latest()->get()
+            $color->products()->with(['colors','sizes','category','brand'])->latest()->get()
         )->additional([
-            'colors' =>Color::has('products')->get(),
-            'sizes' =>Size::has('products')->get(),
-            'brands' =>Brand::has('products')->get(),
-            'categories' =>Category::has('products')->get(),
-            'filter' => $color->name,
+            'colors' => Color::has('products')->get(),
+            'sizes' => Size::has('products')->get(),
+            'brands' => Brand::has('products')->get(),
+            'categories' => Category::has('products')->get(),
+            'filter' => $color->name
         ]);
     }
 
-    // Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size 
-    // Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size 
-    // Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size 
-    // Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size 
-    // Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size Filter Product By Size 
-
-    public function filterProductBySize(Size $size){
-
+     /**
+     * Filter products by size
+     */
+    public function filterProductBySize(Size $size)
+    {
         return ProductResource::collection(
-            $size->prodcuts()->with(['colors','sizes','category','brand'])->latest()->get()
+            $size->products()->with(['colors','sizes','category','brand'])->latest()->get()
         )->additional([
-            'colors' =>Color::has('products')->get(),
-            'sizes' =>Size::has('products')->get(),
-            'brands' =>Brand::has('products')->get(),
-            'categories' =>Category::has('products')->get(),
-            'filter' => $size->name,
+            'colors' => Color::has('products')->get(),
+            'sizes' => Size::has('products')->get(),
+            'brands' => Brand::has('products')->get(),
+            'categories' => Category::has('products')->get(),
+            'filter' => $size->name
         ]);
     }
 
-    // Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term 
-    // Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term 
-    // Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term 
-    // Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term 
-    // Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term Filter Product By Term 
-
-    public function filterProductByTerm($searchTerm){
-
+    /**
+     * Find products by term
+     */
+    public function findProductsByTerm($searchTerm)
+    {
         return ProductResource::collection(
-           Product::where('name','LIKE','%'.$searchTerm.'%')->with(['colors','sizes','category','brand'])->latest()->get()
+            Product::where('name','LIKE','%'.$searchTerm.'%')->with(['colors','sizes','category','brand'])->latest()->get()
         )->additional([
-            'colors' =>Color::has('products')->get(),
-            'sizes' =>Size::has('products')->get(),
-            'brands' =>Brand::has('products')->get(),
-            'categories' =>Category::has('products')->get(),
-            
+            'colors' => Color::has('products')->get(),
+            'sizes' => Size::has('products')->get(),
+            'brands' => Brand::has('products')->get(),
+            'categories' => Category::has('products')->get()
         ]);
     }
 }
