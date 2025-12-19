@@ -53,6 +53,9 @@ export const useProductStore = defineStore('products', {
             console.log(error)
         }
       },
-      
+      clearFilters(){
+        this.filter=null
+        this.fetchAllProducts()
+      }
     }
 })

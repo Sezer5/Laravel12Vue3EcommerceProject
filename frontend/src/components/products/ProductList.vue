@@ -4,7 +4,12 @@
             
             <div class="mb-3">
                 Found
-                <span class="fw-bold">{{ productsStore.products.length }}</span>
+                <span class="fw-bold">{{ productsStore.products.length }}</span> {{ productsStore.products.length > 1 ? "Products" : "Product"}}
+            </div>
+            <div class="ms-1" v-if="productsStore.filter">
+                for <span class="fw-b">
+                    {{ productsStore.filter.param }} {{ productsStore.filter.value }}
+                </span>
             </div>
         </div>
         <ProductListItem v-for="product in productsStore.products.slice(0,data.productsToShow)" :key="product.id" :product="product" />
