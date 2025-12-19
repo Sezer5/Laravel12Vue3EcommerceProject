@@ -1,3 +1,4 @@
+import Product from "@/components/products/Product.vue"
 import { createRouter,createWebHashHistory } from "vue-router"
 const Home = () => import('../components/Home.vue')
 const Register = () => import('../components/auth/Register.vue')
@@ -22,6 +23,11 @@ const router = createRouter({
             path:'/login',
             name:'login',
             component:Login
+        },
+        {
+            path:'/product/:slug',
+            name:'product',
+            component:Product
         }
 
     ]
