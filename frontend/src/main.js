@@ -4,7 +4,6 @@ import App from './App.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap-icons/font/bootstrap-icons.min.css'
-import 'vue-image-zoomer/dist/style.css';
 import 'vue-loading-overlay/dist/css/index.css'
 import VueDOMPurifyHTML from 'vue-dompurify-html'
 import { createPinia } from 'pinia'

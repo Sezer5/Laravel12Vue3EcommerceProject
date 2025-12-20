@@ -21,13 +21,13 @@ actions:{
                 this.product = response.data.data 
                 //get product thumbnail
                 this.productThumbnail = response.data.data.thumbnail
-            // add product images
-            if(response.data.data.first_image){
-                this.productImages.push({
-                    id:1,
-                    src:response.data.data.first_image
-                })
-            }
+                //add product images to the array
+            if(response.data.data.first_image) {
+                    this.productImages.push({
+                        id: 1,
+                        src: response.data.data.first_image
+                    })
+                }
             if(response.data.data.second_image){
                 this.productImages.push({
                     id:2,

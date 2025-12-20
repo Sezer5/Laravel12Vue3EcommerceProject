@@ -5,12 +5,12 @@
         <div class="col-md-6">
             <div>
                 <vue-image-zoomer 
-	            img-class="img-fluid rounded" 
-                :reqular="productDetailStore.product?.thumbnail"
-                :zoom="productDetailStore.product?.thumbnail"
-                />
-                <!-- {{ productDetailStore.product?.thumbnail}}
-                <img :src="productDetailStore.product?.thumbnail" alt=""> -->
+                        img-class="img-fluid rounded" 
+                        :regular="productDetailStore.product?.thumbnail"
+                        :zoom="productDetailStore.product?.thumbnail"
+                    />
+                <!--{{ productDetailStore.product?.thumbnail}}-->
+                <!-- <img :src="productDetailStore.product?.thumbnail" alt=""> -->
                 <!-- Product Images -->
             </div>
         </div>
