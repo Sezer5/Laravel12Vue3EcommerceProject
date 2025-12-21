@@ -4,6 +4,7 @@
     <div class="row my-5">
         <div class="col-md-6">
             <div>
+               
                 <vue-image-zoomer 
                         img-class="img-fluid rounded" 
                         :regular="productDetailStore.product?.thumbnail"
@@ -13,7 +14,21 @@
                 <!-- <img :src="productDetailStore.product?.thumbnail" alt=""> -->
                 <!-- Product Images -->
             </div>
+             <div class="row my-2">
+                    <div class="col-md-3"
+                        v-for="productImage in productDetailStore.productImages"
+                        :key="productImage.id"
+                    >
+                        <vue-image-zoomer 
+                            img-class="img-fluid rounded" 
+                            :regular="productImage.src"
+                            :zoom="productImage.src"
+                        />
+                    </div>
+                </div>
+            
         </div>
+        
         <div class="col-md-5 mx-auto">
             <h5 class="my-3">
                 {{ productDetailStore.product?.name}}
@@ -73,7 +88,9 @@ import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProductDetailsStore } from '../../../stores/useProductDetailsStore';
 import Spinner from "@/components/layouts/Spinner.vue";
-import { VueImageZoomer } from 'vue-image-zoomer';
+import { VueImageZoomer } from 'vue-image-zoomer'
+import 'vue-image-zoomer/dist/style.css';
+
 //define the product store
 
 const productDetailStore = useProductDetailsStore()
