@@ -2,7 +2,7 @@
   <div>
     <Spinner :store="productDetailStore" />
     <div class="row my-5">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div>
                
                 <vue-image-zoomer 
@@ -47,21 +47,29 @@
                 <span class="h5 mb-2">$ {{ productDetailStore.product?.price}}</span>
             </div>
             <div class="d-flex flex-wrap justify-content-start">
-                <div class="border border-light-subtle shadow-sm border-2 shadow-sm border-2 rounded mb-1 me-1" v-for="color in productDetailStore.product?.colors" :key="color.id" :style="{
+                <div :class="`${data.chosenColor?.id === color.id ? 'border border-light-subtle shadow-sm border-2 shadow-sm border-2 rounded' : ''}mb-1 me-1`" v-for="color in productDetailStore.product?.colors" :key="color.id" :style="{
                     backgroundColor:color.name,
                     width:'30px',
                     height:'30px',
                     cursor:'pointer'
-                }">
+                }"
+                @click="setChosenColor(color)"
+                >
                     
                 </div>
             </div>
             <div class="d-flex flex-wrap justify-content-start">
-                <div class="nav-item mb-1 m-1" v-for="size in productDetailStore.product?.sizes" :key="size.id">
-                    <button class="btn btn-sm btn-outline-secondary text-dark">
+                <div class="nav-item mb-1 m-1" v-for="size in productDetailStore.product?.sizes" :key="size.id" @click="setChosenSize(size)">
+                    <button :class="`${data.chosenSize?.id === size.id ? 'btn btn-danger mb-3 mx-1 rounded-0':'btn btn-sm btn-outline-secondary text-dark' }`">
                         {{ size.name }}
                     </button>
                 </div>
+            </div>
+            <div>
+                <span class="badge bg-success" v-if="productDetailStore.product?.status">In Stock</span>
+            </div>
+            <div>
+                <span class="badge bg-danger" v-if="!productDetailStore.product?.status">Out of Stock</span>
             </div>
             <div class="my-3 d-inline-flex">
                 <div>
@@ -88,8 +96,13 @@ import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProductDetailsStore } from '../../../stores/useProductDetailsStore';
 import Spinner from "@/components/layouts/Spinner.vue";
-import { VueImageZoomer } from 'vue-image-zoomer'
 import 'vue-image-zoomer/dist/style.css';
+import { useToast } from 'vue-toastification';
+
+
+//define the toast
+
+const toast = useToast()
 
 //define the product store
 
@@ -106,10 +119,24 @@ onMounted(()=>{
     productDetailStore.fetchProduct(route.params.slug)
 })
 
+// set the chosen color by user
+
+const setChosenColor = (color)=>{
+    data.chosenColor = color
+}
+
+// set the chosen size by user
+
+const setChosenSize = (size)=>{
+    data.chosenSize = size
+}
+
 // define data for the cart
 
 const data = reactive({
-    qty:1
+    qty:1,
+    chosenColor:null,
+    chosenSize:null
 })
 
 </script>
