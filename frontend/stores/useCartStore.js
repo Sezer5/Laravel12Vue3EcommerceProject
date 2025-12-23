@@ -1,8 +1,11 @@
 import {defineStore} from 'pinia'
-
-
+import { useToast } from "vue-toastification"
+//define the toast
+const toast = useToast()
 export const useCartStore = defineStore('cart', {
 
+
+    
 state: () => ({ 
     cartItems:[],
 
@@ -16,7 +19,7 @@ actions:{
         // if product exist 
 
         if(index !== -1){
-            toast.success("Product already in your cart!", {
+            toast.info("Product already in your cart!", {
             timeout: 2000
             });
         }else{
@@ -37,7 +40,7 @@ actions:{
 
         if(index !== -1){
             if(this.cartItems[index].qty === item.maxQty){
-                toast.success(`Only ${item.qty} available`, {
+                toast.warning(`Only ${item.qty} available`, {
                     timeout: 2000
                 });
             }else{
@@ -56,10 +59,21 @@ actions:{
         if(index !== -1){
             this.cartItems[index].qty -=1
             if(this.cartItems[index].qty === 0){
-                this.cartItems = this.cartItems.filter(product => product)
+                this.cartItems = this.cartItems.filter(product => product.ref !== item.ref)
             }
         }
+    },
+
+    removeFromCart(item){
+        this.cartItems = this.cartItems.filter(product => product.ref !== item.ref)
+        toast.danger("Product removed from your cart", {
+                    timeout: 2000
+                });
+    },
+    clearCartItems(){
+        this.cartItems=[]
     }
+
 }
 
 })

@@ -81,9 +81,24 @@
                     >
                 </div>
                 <div class="ms-2">
-                    <button class="btn btn-danger btn-block">
-                        <i class="bi bi-cart-plus"></i> Add To Cart
-                    </button>
+                    <button class="btn btn-danger btn-block"
+                            :disabled="!data.chosenColor || !data.chosenSize || !productDetailStore.product?.status"
+                            @click="cartStore.addToCart({
+                                ref: makeUniqueId(10),
+                                product_id: productDetailStore.product?.id,
+                                name: productDetailStore.product?.name,
+                                slug: productDetailStore.product?.slug,
+                                qty: data.qty,
+                                price: productDetailStore.product?.price,
+                                color: data.chosenColor?.name,
+                                size: data.chosenSize?.name,
+                                maxQty: productDetailStore.product?.qty,
+                                image: productDetailStore.product?.thumbnail,
+                                coupon_id: null,
+                            })"
+                            >
+                            <i class="bi bi-cart-plus"></i> Add to cart
+                        </button>
                 </div>
             </div>
         </div>
@@ -95,14 +110,20 @@
 import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProductDetailsStore } from '../../../stores/useProductDetailsStore';
+import { useCartStore } from '../../../stores/useCartStore';
 import Spinner from "@/components/layouts/Spinner.vue";
 import 'vue-image-zoomer/dist/style.css';
 import { useToast } from 'vue-toastification';
+import { makeUniqueId } from '@/helpers/config';
 
 
 //define the toast
 
 const toast = useToast()
+
+//define the product store
+
+const cartStore = useCartStore()
 
 //define the product store
 
