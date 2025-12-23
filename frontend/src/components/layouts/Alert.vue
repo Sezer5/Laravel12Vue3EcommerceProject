@@ -2,11 +2,7 @@
     <div class="row mt-4">
         <div class="col-md-8 mx-auto">
             <div :class="`alert alert-${bgColor} d-flex align-items-center`">
-                <i class="bi bi-exclamation-triangle me-2">
-                    <div>
-                        {{ content }}
-                    </div>
-                </i>
+                <i class="bi bi-exclamation-triangle me-2"></i>{{ content }}
             </div>
         </div>
     </div>

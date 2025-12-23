@@ -67,8 +67,11 @@
                             </td>
                         </tr>
                     </tbody>
-                    <Alert bgColor="info" content="Your Cart is Empty" v-if="!cartStore.cartItems.length"/>
+                    
                 </table>
+                <div v-if="!cartStore.cartItems.length">
+                        <Alert  bgColor="info" content="Your Cart is Empty" />
+                    </div>
                 <div class="d-flex justify-content-center align-items-center">
                             <div class="border border-dark border-3 fw-bold p-2 rounded d-flex justify-content-center align-items-center">
                                 Total: ${{ total }}
