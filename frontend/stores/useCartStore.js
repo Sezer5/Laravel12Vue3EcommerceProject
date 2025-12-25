@@ -10,7 +10,7 @@ state: () => ({
     cartItems:[],
 
 }),
-
+persist:true,
 actions:{
     addToCart(item){
         let index = this.cartItems.findIndex(product =>product.product_id === item.product_id
