@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AuthUserRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\UserResource;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,18 +27,19 @@ class UserController extends Controller
 
     // Login user Login user Login user Login user Login user Login user Login user Login user Login user Login user Login user Login user 
 
-    public function auth(AuthUserRequest $request){
-        if($request->validated()){
-            $user = User::whereEmail($request->email->first());
-            if(!$user || !Hash::check($request->password,$user->password)){
+    public function auth(AuthUserRequest $request) 
+    {
+        if($request->validated()) {
+            $user = User::whereEmail($request->email)->first();
+            if(!$user || !Hash::check($request->password,$user->password)) {
                 return response()->json([
-                    'message' => 'These credentials do not match any of records'
+                    'error' => 'These credentials do not match any of our records.'
                 ]);
-            }else{
+            }else {
                 return response()->json([
                     'user' => UserResource::make($user),
                     'access_token' => $user->createToken('new_user')->plainTextToken,
-                    'message' => 'Logged in succesfully'
+                    'message' => 'Logged in successfully'
                 ]);
             }
         }

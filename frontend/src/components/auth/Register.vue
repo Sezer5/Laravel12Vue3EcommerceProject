@@ -65,7 +65,7 @@
 
 <script setup>
 import axios from "axios"
-import { reactive } from "vue"
+import { onMounted,reactive } from "vue"
 import { useRouter } from "vue-router"
 import { useToast } from "vue-toastification"
 import {useAuthStore} from "../../../stores/useAuthStore"
@@ -114,6 +114,11 @@ const registerNewUser = async () =>{
     console.log(error)
   }
 }
+
+// Once the component is loaded we clear the validation errors
+
+onMounted(()=>authStore.clearValidationErrors())
+
 
 </script>
 
