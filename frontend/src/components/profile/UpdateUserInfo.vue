@@ -3,7 +3,7 @@
     <div class="card shadow-sm">
         <div class="card-header bg-white">
             <h5 class="text-center my-2">
-                User Details
+                {{ updatingProfile ? "User Details" : "Billing Details" }}
             </h5>
         </div>
         <div class="card-body">
@@ -74,7 +74,7 @@
               </div>
               
               <div class="mb-3">
-                <button
+                <button v-if="!authStore.user?.profile_completed || updatingProfile"
                   type="submit"
                   class="btn btn-sm btn-dark"
                 >
@@ -105,6 +105,16 @@ import axios from 'axios';
         zip_code:''
         }}
     )
+
+    // define the props
+
+    const props = defineProps({
+      updatingProfile:{
+        type:Boolean,
+        required:false,
+        default:false
+      }
+    })
 
     // define the toast 
 

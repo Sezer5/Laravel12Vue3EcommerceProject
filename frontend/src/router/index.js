@@ -6,6 +6,7 @@ const Register = () => import('../components/auth/Register.vue')
 const Login = () => import('../components/auth/Login.vue')
 const Cart = () => import('../components/cart/Cart.vue')
 const Profile = () => import('../components/profile/Profile.vue')
+const CheckOut = () => import('../components/checkout/CheckOut.vue')
 
 // Add here route guards if user logged in or not 
 
@@ -43,6 +44,12 @@ const router = createRouter({
             path:'/profile',
             name:'profile',
             component:Profile,
+            beforeEnter:[checkIfUserIsLoggedIn]
+        },
+        {
+            path:'/checkout',
+            name:'checkout',
+            component:CheckOut,
             beforeEnter:[checkIfUserIsLoggedIn]
         },
         {

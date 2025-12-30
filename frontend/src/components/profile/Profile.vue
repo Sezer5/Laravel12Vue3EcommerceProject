@@ -1,7 +1,7 @@
 <template>
   <div class="row my-5">
     <ProfileSideBar />
-    <UpdateUserInfo />
+    <UpdateUserInfo :updatingProfile="true"/>
   </div>
 </template>
 
