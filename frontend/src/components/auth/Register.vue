@@ -108,7 +108,7 @@ const registerNewUser = async () =>{
     router.push('/login')
   } catch (error) {
     authStore.isLoading = false
-    if(error.response.status === 422){
+    if(error?.response?.status === 422){
       authStore.setValidationErrors(error.response.data.errors)
     }
     console.log(error)

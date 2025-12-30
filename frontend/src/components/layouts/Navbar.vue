@@ -132,7 +132,7 @@ const fetchCurrentUser = async() =>{
     authStore.setUser(response.data.user)
     authStore.setToken(response.data.access_token)
   } catch (error) {
-    if(error.response.status === 401){
+    if(error?.response?.status === 401){
       authStore.clearAuthData()
     }
     

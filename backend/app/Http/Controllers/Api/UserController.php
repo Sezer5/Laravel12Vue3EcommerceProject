@@ -57,7 +57,7 @@ class UserController extends Controller
     // Update user info's Update user info's Update user info's Update user info's Update user info's Update user info's Update user info's Update user info's 
 
     public function UpdateUserProfile(Request $request){
-        $request->validated([
+        $request->validate([
             'profile_image' => 'image|mimes:png,jpg,jpeg,webp|max:2048'
         ]);
         if($request->has('profile_image')){

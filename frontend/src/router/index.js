@@ -5,6 +5,7 @@ const Home = () => import('../components/Home.vue')
 const Register = () => import('../components/auth/Register.vue')
 const Login = () => import('../components/auth/Login.vue')
 const Cart = () => import('../components/cart/Cart.vue')
+const Profile = () => import('../components/profile/Profile.vue')
 
 // Add here route guards if user logged in or not 
 
@@ -37,6 +38,12 @@ const router = createRouter({
             name:'login',
             component:Login,
             beforeEnter:[checkIfUserIsNotLoggedIn]
+        },
+        {
+            path:'/profile',
+            name:'profile',
+            component:Profile,
+            beforeEnter:[checkIfUserIsLoggedIn]
         },
         {
             path:'/product/:slug',
