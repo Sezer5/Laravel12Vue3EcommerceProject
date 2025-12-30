@@ -30,6 +30,16 @@
                 
                 
             </div>
+            <ul class="list-group w-100 text-center mt-2">
+                <li class="list-group-item">
+                    <i class="bi bi-person"></i> {{ authStore.user.name }}
+                </li>
+                <li class="list-group-item">
+                    <router-link class="text-decoration-none text-dark" to="/user/orders">
+                        <i class="bi bi-bag-check-fill"></i> Orders
+                    </router-link>
+                </li>
+            </ul>
         </div>
      </div>
   </div>
