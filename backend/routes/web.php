@@ -4,9 +4,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
-use App\Models\Size;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminController::class,"login"])->name("admin.login");
@@ -80,6 +80,20 @@ Route::prefix("admin")->middleware("admin")->group(function(){
             'edit' => 'admin.products.edit',
             'update' => 'admin.products.update',
             'destroy' => 'admin.products.destroy'
+        ]
+    ]);
+
+
+    //Coupons routes is here Coupons routes is here Coupons routes is here Coupons routes is here Coupons routes is here Coupons routes is here 
+
+    Route::resource("coupons",CouponController::class,[
+        'names' => [
+            'index' => 'admin.coupons.index',
+            'create' => 'admin.coupons.create',
+            'store' => 'admin.coupons.store',
+            'edit' => 'admin.coupons.edit',
+            'update' => 'admin.coupons.update',
+            'destroy' => 'admin.coupons.destroy'
         ]
     ]);
 });
