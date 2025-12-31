@@ -8,6 +8,11 @@ export const useCartStore = defineStore('cart', {
     
 state: () => ({ 
     cartItems:[],
+    validCoupon:{
+        name:'',
+        discount:0
+    },
+    uniqueHash:''
 
 }),
 persist:true,
@@ -72,6 +77,17 @@ actions:{
     },
     clearCartItems(){
         this.cartItems=[]
+    },
+    setValidCoupon(coupon){
+        this.validCoupon = coupon
+    },
+    addCouponTheCartItem(coupon_id){
+        this.cartItems = this.cartItems.map(item=>{
+            return{...item,coupon_id}
+        })
+    },
+    setUniqueHash(hash){
+        this.uniqueHash = hash
     }
 
 }

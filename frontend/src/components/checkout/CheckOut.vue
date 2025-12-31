@@ -2,6 +2,7 @@
   <div class="row my-3">
     <UpdateUserInfo :updatingProfile="false"/>
     <div class="col-md-4">
+        <Coupon />
         <ul class="list-group">
             <li class="list-group-item d-flex"
                 v-for="product in cartStore.cartItems" :key="product.ref"
@@ -40,13 +41,14 @@
             </li>
             <li class="list-group-item d-flex justify-content-between">
                 <span class="fw-bold">
-                    Discount(10)%
+                    Discount({{ cartStore.validCoupon.discount }})%
                 </span>
-                <span class="fw-normal text-danger">
-                    NEW YEAR <i class="bi bi-trash"></i>
+                <span class="fw-normal text-danger"
+                v-if="cartStore.validCoupon?.name">
+                    {{ cartStore.validCoupon.name }} <i class="bi bi-trash" :style="{cursor:'pointer'}" @click="removeCoupon"></i>
                 </span>
                 <span class="fw-bold text-danger">
-                    -$22
+                    -${{ calculatedDiscount() }}
                 </span>
             </li>
             <li class="list-group-item d-flex justify-content-between">
@@ -54,7 +56,7 @@
                     Total
                 </span>
                 <span class="fw-bold text-danger">
-                    ${{ total }}
+                    ${{ finalTotal() }}
                 </span>
             </li>
         </ul>
@@ -80,6 +82,7 @@ import { useToast } from 'vue-toastification';
 import { computed, onMounted } from 'vue';
 import UpdateUserInfo from '../profile/UpdateUserInfo.vue';
 import Alert from '../layouts/Alert.vue';
+import Coupon from '../coupons/Coupon.vue';
 
 // define the store
 
@@ -96,7 +99,15 @@ const toast = useToast()
 
 // calculate the cart total
 
-const total = computed(() => cartStore.cartItems.reduce((acc,item) => acc += item.price * item.qty,0))
+const totalCartOfItems =  cartStore.cartItems.reduce((acc,item) => acc += item.price * item.qty,0)
+
+// calculate the cart total with discount
+
+const calculatedDiscount = () => totalCartOfItems * cartStore.validCoupon.discount / 100
+
+// calculate the final total
+
+const finalTotal = () => totalCartOfItems - calculatedDiscount()
 
 // redirect the user to the home if cart is empty
 
@@ -106,6 +117,19 @@ onMounted(()=>{
     }
 })
 
+// remove the coupon function
+
+const removeCoupon = () =>{
+    cartStore.setValidCoupon({
+        name:'',
+        discount:0
+    })
+    // set the coupon id each item in the cart
+    cartStore.addCouponTheCartItem(null)
+    toast.success("Coupon removed",{
+                timeout:2000
+            })
+}
 
 </script>
 

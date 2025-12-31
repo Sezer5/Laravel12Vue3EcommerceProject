@@ -19,7 +19,7 @@ class CouponController extends Controller
             ]);
         }else{
             return response()->json([
-                'message' => 'Invalid or expired coupon',
+                'error' => 'Invalid or expired coupon',
             ]);
         }
     }
