@@ -38,7 +38,36 @@
                     </span>
                 </div>
             </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span class="fw-bold">
+                    Discount(10)%
+                </span>
+                <span class="fw-normal text-danger">
+                    NEW YEAR <i class="bi bi-trash"></i>
+                </span>
+                <span class="fw-bold text-danger">
+                    -$22
+                </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span class="fw-bold">
+                    Total
+                </span>
+                <span class="fw-bold text-danger">
+                    ${{ total }}
+                </span>
+            </li>
         </ul>
+        <div class="my-3">
+            <button class="btn btn-dark"
+            v-if="authStore.user?.profile_completed"
+            >
+                Pay Now
+            </button>
+            <Alert v-else content="Please add your billing details"
+            bgColor="warning"
+            />
+        </div>
     </div>
   </div>
 </template>
@@ -50,6 +79,7 @@ import { useCartStore } from '../../../stores/useCartStore';
 import { useToast } from 'vue-toastification';
 import { computed, onMounted } from 'vue';
 import UpdateUserInfo from '../profile/UpdateUserInfo.vue';
+import Alert from '../layouts/Alert.vue';
 
 // define the store
 
