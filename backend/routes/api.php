@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CouponController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Resources\UserResource;
@@ -20,6 +21,10 @@ Route::middleware('auth:sanctum')->group(function(){
     // Coupon Route 
 
     Route::post('apply/coupon',[CouponController::class,'applyCoupon']);
+
+    // Order routes
+    Route::post('store/order',[OrderController::class,'storeUserOrders']);
+    Route::post('pay/order',[OrderController::class,'payOrdersByStripe']);
 });
 
 
