@@ -61,11 +61,8 @@
             </li>
         </ul>
         <div class="my-3">
-            <button class="btn btn-dark"
-            v-if="authStore.user?.profile_completed"
-            >
-                Pay Now
-            </button>
+           
+            <Stripe v-if="authStore.user?.profile_completed" />
             <Alert v-else content="Please add your billing details"
             bgColor="warning"
             />
@@ -83,6 +80,7 @@ import { computed, onMounted } from 'vue';
 import UpdateUserInfo from '../profile/UpdateUserInfo.vue';
 import Alert from '../layouts/Alert.vue';
 import Coupon from '../coupons/Coupon.vue';
+import Stripe from '../payment/Stripe.vue'
 
 // define the store
 

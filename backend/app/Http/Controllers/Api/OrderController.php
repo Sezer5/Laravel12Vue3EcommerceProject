@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Order;
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use App\Models\Coupon;
 use ErrorException;
-use Exception;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 
@@ -16,21 +15,20 @@ class OrderController extends Controller
 {
     // Store user orders
 
-    public function storeUserOrders(Request $request){
-
-        foreach($request->cartItems as $item){
+    public function storeUserOrders(Request $request) 
+    {
+        foreach($request->cartItems as $item) {
             $order = Order::create([
                 'qty' => $item['qty'],
                 'user_id' => $request->user()->id,
                 'coupon_id' => $item['coupon_id'],
-                'total' => $this->calculateEachOrderTotal($item['qty'],$item['price'],$item['coupon_id'])
+                'total' => $this->calculateEachOrderTotal($item['qty'],$item['price'],$item['coupon_id']),
             ]);
             $order->products()->attach($item['product_id']);
         }
         return response()->json([
             'user' => UserResource::make($request->user())
         ]);
-
     }
     
 
@@ -55,7 +53,7 @@ class OrderController extends Controller
     public function payOrdersByStripe(Request $request){
         Stripe::setApiKey("sk_test_51SkOjpCIKPfDss6fZJuRzWjWZD8MNEXllbfaPjOSLA7FfCl8qmRTONwYAEEdJgNvx3RccFwe8hMfB13rsGhtohpK00MsMx3scZ");
 
-        try{
+        try {
             $checkout_session = Session::create([
                 'line_items' => [[
                     'price_data' => [
@@ -70,13 +68,13 @@ class OrderController extends Controller
                 'mode' => 'payment',
                 'success_url' => $request->success_url
             ]);
-            // return the link to stripe checkout form
+            //return the link to the stripe checkout form
             return response()->json([
                 'url' => $checkout_session->url
             ]);
-        }catch(ErrorException $e){
+        } catch (ErrorException $e) {
             return response()->json([
-                'url' => $e->getMessage()
+                'error' => $e->getMessage()
             ]);
         }
     }

@@ -86,9 +86,9 @@ actions:{
             return{...item,coupon_id}
         })
     },
-    setUniqueHash(hash){
-        this.uniqueHash = hash
-    }
+    setUniqueHash(hash) {
+            this.uniqueHash = hash
+        }
 
 }
 

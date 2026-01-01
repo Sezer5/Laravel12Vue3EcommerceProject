@@ -7,6 +7,7 @@ const Login = () => import('../components/auth/Login.vue')
 const Cart = () => import('../components/cart/Cart.vue')
 const Profile = () => import('../components/profile/Profile.vue')
 const CheckOut = () => import('../components/checkout/CheckOut.vue')
+const SuccessPayment = () => import('../components/payment/SuccessPayment.vue')
 
 // Add here route guards if user logged in or not 
 
@@ -50,6 +51,12 @@ const router = createRouter({
             path:'/checkout',
             name:'checkout',
             component:CheckOut,
+            beforeEnter:[checkIfUserIsLoggedIn]
+        },
+        {
+            path:'/success/payment/:hash',
+            name:'successPayment',
+            component:SuccessPayment,
             beforeEnter:[checkIfUserIsLoggedIn]
         },
         {
