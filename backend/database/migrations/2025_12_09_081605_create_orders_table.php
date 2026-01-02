@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('total',8,2);
             $table->datetime('delivered_at');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('coupon_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('coupon_id')->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }
