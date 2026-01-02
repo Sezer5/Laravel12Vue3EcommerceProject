@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
+use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminController::class,"login"])->name("admin.login");
@@ -96,4 +97,11 @@ Route::prefix("admin")->middleware("admin")->group(function(){
             'destroy' => 'admin.coupons.destroy'
         ]
     ]);
+
+    //Order Routes Order Routes Order Routes Order Routes Order Routes Order Routes Order Routes Order Routes Order Routes Order Routes Order Routes 
+
+    Route::get('orders', [OrderController::class,"index"])->name("admin.orders.index");
+    Route::get('update/{order}/order', [OrderController::class,"updateDeliveredAtDate"])->name("admin.orders.update");
+    Route::delete('delete/{order}/order', [OrderController::class,"delete"])->name("admin.orders.delete");
+
 });
