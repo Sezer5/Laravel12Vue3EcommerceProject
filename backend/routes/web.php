@@ -1,14 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
-use App\Http\Controllers\Admin\CouponController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\OrderController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
 
 Route::get('/', [AdminController::class,"login"])->name("admin.login");
 Route::post('admin/auth', [AdminController::class,"auth"])->name("admin.auth");
@@ -103,5 +104,11 @@ Route::prefix("admin")->middleware("admin")->group(function(){
     Route::get('orders', [OrderController::class,"index"])->name("admin.orders.index");
     Route::get('update/{order}/order', [OrderController::class,"updateDeliveredAtDate"])->name("admin.orders.update");
     Route::delete('delete/{order}/order', [OrderController::class,"delete"])->name("admin.orders.delete");
+
+    //Review Routes Review Routes Review Routes Review Routes Review Routes Review Routes Review Routes Review Routes Review Routes Review Routes Review Routes 
+
+    Route::get('reviews', [ReviewController::class,"index"])->name("admin.reviews.index");
+    Route::get('update/{review}/{status}/review', [ReviewController::class,"toggleApproveStatus"])->name("admin.reviews.update");
+    Route::delete('delete/{review}/review', [ReviewController::class,"delete"])->name("admin.reviews.delete");
 
 });

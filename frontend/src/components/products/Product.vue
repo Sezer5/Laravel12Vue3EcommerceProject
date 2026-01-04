@@ -1,7 +1,8 @@
 <template>
   <div>
     <Spinner :store="productDetailStore" />
-    <div class="row my-5">
+    <div v-if="productDetailStore.product">
+        <div class="row my-5">
         <div class="col-md-4">
             <div>
                
@@ -115,7 +116,7 @@
             </div>
         </div>
     </div>
-    <div class="row my-4" v-if="productDetailStore.product">
+    <div class="row my-4" >
         <div class="col-md-8 mx-auto">
                 <ReviewList />
             <div v-if="authStore.isLoggedIn">
@@ -126,6 +127,8 @@
             </div>
         </div>
     </div>
+    </div>
+    
 
 
 
