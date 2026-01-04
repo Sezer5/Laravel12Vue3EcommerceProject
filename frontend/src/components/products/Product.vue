@@ -30,6 +30,18 @@
         </div>
         
         <div class="col-md-5 mx-auto">
+            <div v-if="productDetailStore?.product?.reviews.length > 0">
+                <StarRating 
+                v-model:rating="reviewAvg"
+                :show-rating="false"
+                read-only
+                star-size="24"
+                />
+                <small class="text-muted">
+                    {{productDetailStore.product.reviews.length}}
+                    {{productDetailStore.product.reviews.length > 1 ? "Reviews" : "Review"}}
+                </small>
+            </div>
             <h5 class="my-3">
                 {{ productDetailStore.product?.name}}
             </h5>
@@ -123,7 +135,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProductDetailsStore } from '../../../stores/useProductDetailsStore';
 import { useCartStore } from '../../../stores/useCartStore';
@@ -135,6 +147,7 @@ import { useAuthStore } from '../../../stores/useAuthStore';
 import Review from "../reviews/AddReview.vue"
 import ReviewList from "../reviews/ReviewList.vue"
 import UpdateReview from "../reviews/UpdateReview.vue"
+import StarRating from "vue-star-rating"
 
 // Define the auth store
 
@@ -162,6 +175,10 @@ const route = useRoute()
 const checkIfUserBoughtTheProduct = () =>{
     return authStore.user?.orders?.some(order => order?.products.some(item => item.id ===productDetailStore.product.id))
 }
+
+// calculate the average reviews of product
+
+const reviewAvg = computed(()=> productDetailStore?.product?.reviews.reduce((acc,review) => acc + review.rating / productDetailStore.product.reviews.length,0))
 
 // once the component is mounted we fetch the product
 

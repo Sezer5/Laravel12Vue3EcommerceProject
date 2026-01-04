@@ -10,12 +10,13 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <span class="h5 mb-0">$ {{product.price}}</span>
                     <div>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-half text-warning"></i>
-                        <small class="text-muted">(4.5)</small>
+                                <StarRating 
+                        v-model:rating="reviewAvg"
+                        :show-rating="false"
+                        read-only
+                        star-size="24"
+                        />
+                        <!-- <small class="text-muted">(4.5)</small> -->
                     </div>
                 </div>
             </div>
@@ -34,12 +35,19 @@
 
 // define props
 
+import { computed } from "vue"
+import StarRating from "vue-star-rating"
+
 const props = defineProps ({
     product: {
         type:Object,
         required:true
     }
 })
+
+// calculate the average reviews of product
+
+const reviewAvg = computed(()=> props.product.reviews.reduce((acc,review) => acc + review.rating / props.product.reviews.length,0))
 </script>
 
 <style scoped>
