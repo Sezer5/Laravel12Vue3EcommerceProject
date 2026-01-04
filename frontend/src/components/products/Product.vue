@@ -105,6 +105,7 @@
     </div>
     <div class="row my-4" v-if="productDetailStore.product">
         <div class="col-md-8 mx-auto">
+            <ReviewList />
             <div v-if="authStore.isLoggedIn">
                 <Review />
             </div>
@@ -129,6 +130,7 @@ import { useToast } from 'vue-toastification';
 import { makeUniqueId } from '@/helpers/config';
 import { useAuthStore } from '../../../stores/useAuthStore';
 import Review from "../reviews/AddReview.vue"
+import ReviewList from "../reviews/ReviewList.vue"
 
 
 // Define the auth store
