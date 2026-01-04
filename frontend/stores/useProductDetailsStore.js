@@ -1,6 +1,15 @@
 import {defineStore} from 'pinia'
 import axios from 'axios';
-import {BASE_URL} from '@/helpers/config'
+import {BASE_URL, headersConfig} from '@/helpers/config'
+import { useAuthStore } from './useAuthStore';
+import { useToast } from 'vue-toastification';
+
+// //define the store 
+
+
+// define the toast 
+
+const toast = useToast()
 
 export const useProductDetailsStore = defineStore('product', {
 
@@ -10,6 +19,10 @@ state: () => ({
        productImages:[],
        isLoading:false,
        errorMessage:'',
+       reviewToUpdate:{
+        updating:false,
+        data:null
+       }
 }),
 
 actions:{
@@ -46,6 +59,44 @@ actions:{
             console.log(error)
         }
     },
+    editReview(review){
+        this.reviewToUpdate = {
+            updating:true,
+            data:review
+        }
+    },
+    cancelUpdating(){
+        this.reviewToUpdate={
+            updating:false,data:null
+        }
+    },
+    async storeReview(review){
+        const authStore = useAuthStore()
+
+        this.isLoading = true
+        try {
+            const response = await axios.post(`${BASE_URL}/store/review`,{
+                title:review.title,
+                body:review.body,
+                rating:review.rating,
+                product_id:this.product.id
+            },headersConfig(authStore.access_token))
+            if(response.data.error){
+                toast.error(response.data.error,{
+                    timeout:2000
+                })
+            }else{
+                toast.success(response.data.message,{
+                    timeout:2000
+                })
+                this.isLoading = false
+            }
+        } catch (error) {
+                console.log(error)
+                this.isLoading = false
+            
+        }
+    }
 }
 
 
