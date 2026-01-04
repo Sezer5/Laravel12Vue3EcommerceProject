@@ -118,6 +118,39 @@ actions:{
         } catch (error) {
                 console.log(error)            
         }
+    },
+    async updateReview(review){
+        const authStore = useAuthStore()
+
+        this.isLoading = true
+        try {
+            const response = await axios.put(`${BASE_URL}/update/review`,{
+                title:review.title,
+                body:review.body,
+                rating:review.rating,
+                product_id:this.product.id
+            },headersConfig(authStore.access_token))
+            if(response.data.error){
+                toast.error(response.data.error,{
+                    timeout:2000
+                })
+            }else{
+                this.product.reviews = this.product.reviews.filter(item=>item.id !== review.id)
+                // set the review to update
+                this.reviewToUpdate = {
+                    updating:false,
+                    data:null
+                }
+                toast.success(response.data.message,{
+                    timeout:2000
+                })
+                this.isLoading = false
+            }
+        } catch (error) {
+                console.log(error)
+                this.isLoading = false
+            
+        }
     }
 }
 

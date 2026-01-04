@@ -105,9 +105,12 @@
     </div>
     <div class="row my-4" v-if="productDetailStore.product">
         <div class="col-md-8 mx-auto">
-            <ReviewList />
+                <ReviewList />
             <div v-if="authStore.isLoggedIn">
-                <Review />
+                <div v-if="checkIfUserBoughtTheProduct()">
+                    <UpdateReview v-if="productDetailStore.reviewToUpdate.updating"/>
+                    <Review v-else/>
+                </div>
             </div>
         </div>
     </div>
@@ -131,7 +134,7 @@ import { makeUniqueId } from '@/helpers/config';
 import { useAuthStore } from '../../../stores/useAuthStore';
 import Review from "../reviews/AddReview.vue"
 import ReviewList from "../reviews/ReviewList.vue"
-
+import UpdateReview from "../reviews/UpdateReview.vue"
 
 // Define the auth store
 
@@ -153,6 +156,12 @@ const productDetailStore = useProductDetailsStore()
 //define the route
 
 const route = useRoute()
+
+// check if user has bought the product
+
+const checkIfUserBoughtTheProduct = () =>{
+    return authStore.user?.orders?.some(order => order?.products.some(item => item.id ===productDetailStore.product.id))
+}
 
 // once the component is mounted we fetch the product
 
