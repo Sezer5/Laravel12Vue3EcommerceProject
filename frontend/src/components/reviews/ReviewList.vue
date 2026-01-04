@@ -29,7 +29,7 @@
                         />
                     </div>
                     <div class="d-flex flex-column align-items-center">
-                        <button class="btn btn-sm btn-danger mb-2" v-if="authStore.isLoggedIn && authStore.user.id===review.user_id"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-sm btn-danger mb-2" v-if="authStore.isLoggedIn && authStore.user.id===review.user_id" @click="productDetailStore.removeReview(review)"><i class="bi bi-trash"></i></button>
                         <button class="btn btn-sm btn-warning mb-2" v-if="authStore.isLoggedIn && authStore.user.id===review.user_id" @click="productDetailStore.editReview(review)"><i class="bi bi-pencil"></i></button>
                     </div>
                 </div>
