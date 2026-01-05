@@ -24,7 +24,17 @@
                 <button class="btn btn-danger btn-sm">
                     <i class="bi bi-cart-plus"></i> Add to Cart
                 </button>
-                <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-heart"></i></button>
+                <button class="btn btn-outline-danger btn-sm"
+                @click="favrotiesStore.addToFavorites(product)"
+                v-if="!favrotiesStore.checkIfProductAlreadyAddedToFavorites(product)">
+                    <i class="bi bi-heart"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm"
+                @click="favrotiesStore.addToFavorites(product)"
+                v-else
+                >
+                    <i class="bi bi-heart-fill"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -37,6 +47,11 @@
 
 import { computed } from "vue"
 import StarRating from "vue-star-rating"
+import { useFavoritesStore } from "../../../stores/useFavoritesStore"
+
+//Define the favrotie list Store
+
+const favrotiesStore = useFavoritesStore()
 
 const props = defineProps ({
     product: {

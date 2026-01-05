@@ -75,6 +75,13 @@
             }})
           </router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/favorites">
+            <i class="bi bi-heart-fill"></i> Favorites ({{
+              favrotiesStore.favorites.length
+            }})
+          </router-link>
+        </li>
       </ul>
     </div>
   </nav>
@@ -88,9 +95,12 @@ import { BASE_URL, headersConfig } from "@/helpers/config";
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
+import { useFavoritesStore } from "../../../stores/useFavoritesStore";
 
 // define to here cart store
 const cartStore = useCartStore();
+
+const favrotiesStore = useFavoritesStore()
 
 // define the toast 
 

@@ -9,6 +9,7 @@ const Profile = () => import('../components/profile/Profile.vue')
 const CheckOut = () => import('../components/checkout/CheckOut.vue')
 const SuccessPayment = () => import('../components/payment/SuccessPayment.vue')
 const UserOrders = () => import('../components/profile/UserOrders.vue')
+const Favorites = () => import('../components/favorites/Favorites.vue')
 
 // Add here route guards if user logged in or not 
 
@@ -75,6 +76,11 @@ const router = createRouter({
             path:'/cart',
             name:'cart',
             component:Cart
+        },
+        {
+            path:'/favorites',
+            name:'favorites',
+            component:Favorites,
         }
 
     ]
