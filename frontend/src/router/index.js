@@ -10,6 +10,7 @@ const CheckOut = () => import('../components/checkout/CheckOut.vue')
 const SuccessPayment = () => import('../components/payment/SuccessPayment.vue')
 const UserOrders = () => import('../components/profile/UserOrders.vue')
 const Favorites = () => import('../components/favorites/Favorites.vue')
+const PageNotFound = () => import('../components/404/PageNotFound.vue')
 
 // Add here route guards if user logged in or not 
 
@@ -81,6 +82,11 @@ const router = createRouter({
             path:'/favorites',
             name:'favorites',
             component:Favorites,
+        },
+        {
+            path:'/:pathMatch(.*)*',
+            name:'404',
+            component:PageNotFound,
         }
 
     ]

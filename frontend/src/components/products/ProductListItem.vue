@@ -21,9 +21,9 @@
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-between bg-light">
-                <button class="btn btn-danger btn-sm">
+                <router-link :to="`/product/${product.slug}`" class="btn btn-danger btn-sm">
                     <i class="bi bi-cart-plus"></i> Add to Cart
-                </button>
+                </router-link>
                 <button class="btn btn-outline-danger btn-sm"
                 @click="favrotiesStore.addToFavorites(product)"
                 v-if="!favrotiesStore.checkIfProductAlreadyAddedToFavorites(product)">
